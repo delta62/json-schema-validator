@@ -1,4 +1,4 @@
-export default async function readStdin() {
+export default async function readStdin(): Promise<string> {
   let inputBuffer = Buffer.alloc(0)
 
   process.stdin.on('data', (data: Buffer) => {
