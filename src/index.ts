@@ -1,6 +1,7 @@
 import Args from './args'
 import readFile from './readers/file'
 import readStdin from './readers/stdin'
+import generate from './generate'
 
 export default async function main(args: Args) {
   let schema: string
@@ -9,5 +10,6 @@ export default async function main(args: Args) {
   } else {
     schema = await readStdin()
   }
-  console.log(schema)
+  let jsonSchema = JSON.parse(schema)
+  process.stdout.write(generate(jsonSchema))
 }
