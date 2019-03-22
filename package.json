@@ -6,16 +6,30 @@
   "author": "Sam Noedel <sam.noedel@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "tsc -w"
+    "start": "tsc -w",
+    "debug": "jest --watch"
   },
   "bin": "bin/cli.js",
   "devDependencies": {
+    "@types/jest": "^24.0.11",
     "@types/joi": "^14.3.2",
     "@types/yargs": "^12.0.10",
+    "jest": "^24.5.0",
+    "ts-jest": "^24.0.0",
     "typescript": "^3.3.4000"
   },
   "dependencies": {
     "@types/node": "^11.11.4",
     "yargs": "^13.2.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "\\.ts$": "ts-jest"
+    },
+    "testRegex": "/test/.*\\.test\\.ts"
   }
 }
