@@ -1,4 +1,5 @@
 import { ObjectSchema, Schema } from './schema'
+import generateStringValidator from './generators/string'
 
 export default function generate(schema: Schema): string {
     switch (schema) {
@@ -22,7 +23,7 @@ function generateFalseSchema() {
 function generateObjectSchema(schema: ObjectSchema) {
     switch (schema.type) {
         case 'string':
-            return 'joi.string()'
+            return generateStringValidator(schema)
         default:
             throw new Error(`Schema type "${schema.type}" not recognized`)
     }
