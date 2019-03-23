@@ -24,3 +24,8 @@ export function addConstraint(validator: Validator, constraint: Constraint): Val
         params: [ ]
     }
 }
+
+export function singletonConstraint<T>(name: string, value: T): Constraint {
+    let params = [ value ]
+    return { name, params }
+}

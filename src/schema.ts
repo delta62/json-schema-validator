@@ -6,7 +6,7 @@ export type FalseSchema = false
 
 export type RootSchema = ObjectSchema & { $schema: string }
 
-export interface ObjectSchema {
+export interface ObjectSchemaInternal {
   // General validation
   type: string | string[]
   enum: any
@@ -63,3 +63,5 @@ export interface ObjectSchema {
   writeOnly: boolean
   examples: any[]
 }
+
+export type ObjectSchema = Partial<ObjectSchemaInternal>

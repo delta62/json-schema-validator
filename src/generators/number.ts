@@ -1,59 +1,20 @@
-import { Validator, addConstraint, createValidator } from './generator'
+import { Validator, addConstraint, createValidator, singletonConstraint } from './generator'
 import { ObjectSchema } from '../schema'
 
+const constraintHash: Partial<Record<keyof ObjectSchema, string>> = {
+    minimum:          'min',
+    maximum:          'max',
+    exclusiveMinimum: 'greater',
+    exclusiveMaximum: 'less',
+    multipleOf:       'multiple'
+}
+
 export default function generateNumberSchema(schema: ObjectSchema): Validator {
-    let validator = createValidator('number')
-
-    if (schema.minimum !== undefined) {
-        validator = minConstraint(validator, schema.minimum)
-    }
-    if (schema.maximum !== undefined) {
-        validator = maxConstraint(validator, schema.maximum)
-    }
-    if (schema.multipleOf !== undefined) {
-        validator = multipleOf(validator, schema.multipleOf)
-    }
-    if (schema.exclusiveMaximum !== undefined) {
-        validator = exclusiveMax(validator, schema.exclusiveMaximum)
-    }
-    if (schema.exclusiveMinimum !== undefined) {
-        validator = exclusiveMin(validator, schema.exclusiveMinimum)
-    }
-
-    return validator
-}
-
-function exclusiveMin(validator: Validator, value: number): Validator {
-    return addConstraint(validator, {
-        name: 'greater',
-        params: [ value ]
-    })
-}
-
-function exclusiveMax(validator: Validator, value: number): Validator {
-    return addConstraint(validator, {
-        name: 'less',
-        params: [ value ]
-    })
-}
-
-function multipleOf(validator: Validator, value: number): Validator {
-    return addConstraint(validator, {
-        name: 'multiple',
-        params: [ value ]
-    })
-}
-
-function minConstraint(validator: Validator, value: number): Validator {
-    return addConstraint(validator, {
-        name: 'min',
-        params: [ value ]
-    })
-}
-
-function maxConstraint(validator: Validator, value: number): Validator {
-    return addConstraint(validator, {
-        name: 'max',
-        params: [ value ]
-    })
+    return Object.entries(constraintHash).reduce((acc, [ jsonName, joiName ]) => {
+        if (schema.hasOwnProperty(jsonName)) {
+            let value: number = schema[jsonName as keyof ObjectSchema]
+            return addConstraint(acc, singletonConstraint(joiName!, value))
+        }
+        return acc
+    }, createValidator('number'))
 }
