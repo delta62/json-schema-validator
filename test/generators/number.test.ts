@@ -1,6 +1,6 @@
-import './matchers/to-have-constraint'
+import '../matchers/to-have-constraint'
 
-import generateNumberSchema from '../src/generators/number'
+import generateNumberSchema from '../../src/generators/number'
 
 test('generates a number validator', () => {
     let result = generateNumberSchema({ })
