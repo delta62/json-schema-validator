@@ -1,4 +1,4 @@
-export type ValidatorType = 'number' | 'string'
+export type ValidatorType = 'array' | 'number' | 'string'
 
 export interface Constraint {
     name: string
