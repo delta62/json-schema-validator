@@ -28,7 +28,13 @@ function toHaveConstraint(this: jest.MatcherUtils, actual: any, name: string, ..
     }
 
     let actualParams: any[] = constraintDef.params || [ ]
-    let sameParams = actualParams.every((param, i) => param === params[i])
+    let sameParams = actualParams.every((param, i) => {
+      if (param === params[i]) return true
+      if (param instanceof RegExp) {
+        return param.toString() === params[i].toString()
+      }
+      return false
+    })
     if (actualParams.length !== params.length || !sameParams) {
         return {
             pass: false,

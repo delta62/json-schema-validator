@@ -1,19 +1,18 @@
-import { strict as assert } from 'assert'
+import { Validator, addConstraint, createValidator, singletonConstraint } from './generator'
 import { ObjectSchema } from '../schema'
 
-export default function generateStringSchema(schema: ObjectSchema) {
-    assert.equal(schema.type, 'string')
+const constraintHash: Partial<Record<keyof ObjectSchema, string>> = {
+    minLength: 'min',
+    maxLength: 'max',
+    pattern:   'regex'
+}
 
-    let validator = 'joi.string()'
-
-    if (schema.minLength !== undefined) {
-        validator += `.min(${schema.minLength})`
-    }
-    if (schema.maxLength !== undefined) {
-        validator += `.max(${schema.maxLength})`
-    }
-    if (schema.pattern !== undefined) {
-        validator += `.regex(${schema.pattern})`
-    }
-    return validator
+export default function generateStringSchema(schema: ObjectSchema): Validator {
+    return Object.entries(constraintHash).reduce((acc, [ jsonName, joiName ]) => {
+        if (schema.hasOwnProperty(jsonName)) {
+            let value: number = schema[jsonName as keyof ObjectSchema]
+            return addConstraint(acc, singletonConstraint(joiName!, value))
+        }
+        return acc
+    }, createValidator('string'))
 }
