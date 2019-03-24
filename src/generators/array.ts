@@ -1,4 +1,5 @@
-import { Validator, addConstraint, createValidator, singletonConstraint } from './generator'
+import generateValidator from './index'
+import { Validator, addConstraint, createValidator, singletonConstraint } from './validator'
 import { ObjectSchema } from '../schema'
 
 export default function generateNumberSchema(schema: ObjectSchema): Validator {
@@ -9,8 +10,11 @@ export default function generateNumberSchema(schema: ObjectSchema): Validator {
   if (schema.hasOwnProperty('minItems')) {
     validator = addConstraint(validator, singletonConstraint('min', schema.minItems))
   }
-  if (schema.uniqueItems) {
+  if (schema.hasOwnProperty('uniqueItems') && schema.uniqueItems) {
     validator = addConstraint(validator, { name: 'unique', params: [ ] })
+  }
+  if (schema.hasOwnProperty('contains')) {
+    validator = addConstraint(validator, generateValidator(schema.contains!))
   }
   return validator
 }

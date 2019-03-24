@@ -4,11 +4,11 @@ export type TrueSchema = true
 
 export type FalseSchema = false
 
-export type RootSchema = ObjectSchema & { $schema: string }
+export type SchemaType = 'string' | 'boolean' | 'null' | 'object' | 'array' | 'number' | 'integer'
 
-export interface ObjectSchemaInternal {
+interface ObjectSchemaInternal {
   // General validation
-  type: string | string[]
+  type: SchemaType | SchemaType[]
   enum: any
   const: any
 

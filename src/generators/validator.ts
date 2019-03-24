@@ -1,4 +1,4 @@
-export type ValidatorType = 'array' | 'number' | 'string'
+export type ValidatorType = 'any' | 'array' | 'number' | 'string'
 
 export interface Constraint {
     name: string
@@ -29,3 +29,12 @@ export function singletonConstraint<T>(name: string, value: T): Constraint {
     let params = [ value ]
     return { name, params }
 }
+
+export function mixinConstraints(source: Validator, dest: Validator): Validator {
+  return {
+    name: dest.name,
+    params: [ ],
+    constraints: [ ...source.constraints, ...dest.constraints ]
+  }
+}
+

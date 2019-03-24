@@ -1,4 +1,4 @@
-import { Validator, addConstraint, createValidator, singletonConstraint } from './generator'
+import { Validator, addConstraint, createValidator, singletonConstraint } from './validator'
 import { ObjectSchema } from '../schema'
 
 const constraintHash: Partial<Record<keyof ObjectSchema, string>> = {
