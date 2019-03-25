@@ -25,14 +25,13 @@ export function addConstraint(validator: Validator, constraint: Constraint): Val
     }
 }
 
-export function singletonConstraint<T>(name: string, value: T): Constraint {
-    let params = [ value ]
-    return { name, params }
+export function createConstraint(name: string, ...params: any[]): Constraint {
+  return { name, params }
 }
 
 export function mixinConstraints(source: Validator, dest: Validator): Validator {
   return {
-    name: dest.name,
+    name: source.name,
     params: [ ],
     constraints: [ ...source.constraints, ...dest.constraints ]
   }

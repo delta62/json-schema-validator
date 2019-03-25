@@ -19,11 +19,14 @@ export default function generateValidator(schema: Schema): Validator {
     switch (schema.type) {
       case 'string':
         validator = generateStringValidator(schema)
+        break
       case 'integer':
       case 'number':
         validator = generateNumberValidator(schema)
+        break
       case 'array':
         validator = generateArrayValidator(schema)
+        break
       case 'null':
       case 'object':
       case 'boolean':

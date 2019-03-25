@@ -1,20 +1,22 @@
 import generateValidator from './index'
-import { Validator, addConstraint, createValidator, singletonConstraint } from './validator'
+import { Validator, addConstraint, createValidator, createConstraint } from './validator'
 import { ObjectSchema } from '../schema'
 
 export default function generateNumberSchema(schema: ObjectSchema): Validator {
   let validator = createValidator('array')
   if (schema.hasOwnProperty('maxItems')) {
-    validator = addConstraint(validator, singletonConstraint('max', schema.maxItems))
+    validator = addConstraint(validator, createConstraint('max', schema.maxItems))
   }
   if (schema.hasOwnProperty('minItems')) {
-    validator = addConstraint(validator, singletonConstraint('min', schema.minItems))
+    validator = addConstraint(validator, createConstraint('min', schema.minItems))
   }
   if (schema.hasOwnProperty('uniqueItems') && schema.uniqueItems) {
-    validator = addConstraint(validator, { name: 'unique', params: [ ] })
+    validator = addConstraint(validator, createConstraint('unique'))
   }
   if (schema.hasOwnProperty('contains')) {
-    validator = addConstraint(validator, generateValidator(schema.contains!))
+    let subvalidator = generateValidator(schema.contains!)
+    let constraint = createConstraint('contains', subvalidator)
+    validator = addConstraint(validator, constraint)
   }
   return validator
 }
