@@ -30,3 +30,12 @@ test('generates a contains constraint', () => {
   let subSchema = result.constraints[0].params[0]
   expect(subSchema).toHaveConstraint('min', 42)
 })
+
+test('generates an items constraint', () => {
+  let result = generateArraySchema({
+    items: { type: 'string', minLength: 42 }
+  })
+  expect(result).toHaveConstraint('items')
+  let subSchema = result.constraints[0].params[0]
+  expect(subSchema).toHaveConstraint('min', 42)
+})

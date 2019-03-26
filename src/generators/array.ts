@@ -1,6 +1,6 @@
 import generateValidator from './index'
 import { Validator, addConstraint, createValidator, createConstraint } from './validator'
-import { ObjectSchema } from '../schema'
+import { ObjectSchema, Schema } from '../schema'
 
 export default function generateNumberSchema(schema: ObjectSchema): Validator {
   let validator = createValidator('array')
@@ -16,6 +16,14 @@ export default function generateNumberSchema(schema: ObjectSchema): Validator {
   if (schema.hasOwnProperty('contains')) {
     let subvalidator = generateValidator(schema.contains!)
     let constraint = createConstraint('contains', subvalidator)
+    validator = addConstraint(validator, constraint)
+  }
+  if (schema.hasOwnProperty('items')) {
+    if (Array.isArray(schema.items)) {
+      throw new Error('Multiple array items are not supported')
+    }
+    let subvalidator = generateValidator(schema.items as Schema)
+    let constraint = createConstraint('items', subvalidator)
     validator = addConstraint(validator, constraint)
   }
   return validator
