@@ -12,9 +12,9 @@ export default function generateValidator(schema: Schema): Validator {
   let validator: Validator
 
   if (isTrueSchema(schema)) {
-    validator = generateTrueValidator()
+    return generateTrueValidator()
   } else if (isFalseSchema(schema)) {
-    validator = generateFalseValidator()
+    return generateFalseValidator()
   } else if (!schema.hasOwnProperty('type')) {
     return generateAnyValidator(schema)
   } else {
