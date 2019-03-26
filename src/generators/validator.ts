@@ -9,7 +9,7 @@ export interface Validator extends Constraint {
     constraints: Constraint[]
 }
 
-export function createValidator(type: ValidatorType): Validator {
+export function validator(type: ValidatorType): Validator {
     return {
         name: type,
         params: [ ],
@@ -25,7 +25,7 @@ export function addConstraint(validator: Validator, constraint: Constraint): Val
     }
 }
 
-export function createConstraint(name: string, ...params: any[]): Constraint {
+export function constraint(name: string, ...params: any[]): Constraint {
   return { name, params }
 }
 

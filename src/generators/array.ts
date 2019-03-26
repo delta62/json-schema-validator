@@ -1,30 +1,30 @@
 import generateValidator from './index'
-import { Validator, addConstraint, createValidator, createConstraint } from './validator'
+import { Validator, addConstraint, validator, constraint } from './validator'
 import { ObjectSchema, Schema } from '../schema'
 
 export default function generateNumberSchema(schema: ObjectSchema): Validator {
-  let validator = createValidator('array')
+  let v = validator('array')
   if (schema.hasOwnProperty('maxItems')) {
-    validator = addConstraint(validator, createConstraint('max', schema.maxItems))
+    v = addConstraint(v, constraint('max', schema.maxItems))
   }
   if (schema.hasOwnProperty('minItems')) {
-    validator = addConstraint(validator, createConstraint('min', schema.minItems))
+    v = addConstraint(v, constraint('min', schema.minItems))
   }
   if (schema.hasOwnProperty('uniqueItems') && schema.uniqueItems) {
-    validator = addConstraint(validator, createConstraint('unique'))
+    v = addConstraint(v, constraint('unique'))
   }
   if (schema.hasOwnProperty('contains')) {
     let subvalidator = generateValidator(schema.contains!)
-    let constraint = createConstraint('contains', subvalidator)
-    validator = addConstraint(validator, constraint)
+    let c = constraint('contains', subvalidator)
+    v = addConstraint(v, c)
   }
   if (schema.hasOwnProperty('items')) {
     if (Array.isArray(schema.items)) {
       throw new Error('Multiple array items are not supported')
     }
     let subvalidator = generateValidator(schema.items as Schema)
-    let constraint = createConstraint('items', subvalidator)
-    validator = addConstraint(validator, constraint)
+    let c = constraint('items', subvalidator)
+    v = addConstraint(v, c)
   }
-  return validator
+  return v
 }

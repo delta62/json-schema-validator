@@ -1,6 +1,6 @@
 import { Schema } from '../schema'
-import { createValidator } from './validator'
+import { validator } from './validator'
 
 export default function generateAnyValidator(_schema: Schema) {
-  return createValidator('any')
+  return validator('any')
 }
