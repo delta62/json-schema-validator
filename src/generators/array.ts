@@ -2,6 +2,11 @@ import generateValidator from './index'
 import { Validator, addConstraint, validator, constraint } from './validator'
 import { ObjectSchema, Schema } from '../schema'
 
+/* NOT IMPLEMENTED:
+ * - items[]
+ * - additionalItems
+ */
+
 export default function generateNumberSchema(schema: ObjectSchema): Validator {
   let v = validator('array')
   if (schema.hasOwnProperty('maxItems')) {

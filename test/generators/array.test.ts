@@ -3,23 +3,23 @@ import '../matchers/to-have-constraint'
 import generateArraySchema from '../../src/generators/array'
 
 test('generates an array validator', () => {
-    let result = generateArraySchema({ })
-    expect(result).toHaveProperty('name', 'array')
+  let result = generateArraySchema({ })
+  expect(result).toHaveProperty('name', 'array')
 })
 
 test('generates a min constraint', () => {
-    let result = generateArraySchema({ minItems: 42 })
-    expect(result).toHaveConstraint('min', 42)
+  let result = generateArraySchema({ minItems: 42 })
+  expect(result).toHaveConstraint('min', 42)
 })
 
 test('generates a max constraint', () => {
-    let result = generateArraySchema({ maxItems: 42 })
-    expect(result).toHaveConstraint('max', 42)
+  let result = generateArraySchema({ maxItems: 42 })
+  expect(result).toHaveConstraint('max', 42)
 })
 
 test('generates a unique constraint', () => {
-    let result = generateArraySchema({ uniqueItems: true })
-    expect(result).toHaveConstraint('unique')
+  let result = generateArraySchema({ uniqueItems: true })
+  expect(result).toHaveConstraint('unique')
 })
 
 test('generates a contains constraint', () => {

@@ -15,6 +15,8 @@ export default function generateValidator(schema: Schema): Validator {
     validator = generateTrueValidator()
   } else if (isFalseSchema(schema)) {
     validator = generateFalseValidator()
+  } else if (!schema.hasOwnProperty('type')) {
+    return generateAnyValidator(schema)
   } else {
     switch (schema.type) {
       case 'string':
