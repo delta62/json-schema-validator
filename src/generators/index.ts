@@ -32,6 +32,7 @@ export default function generateValidator(schema: Schema): Validator {
         break
       case 'object':
         validator = generateObjectValidator(schema)
+        break
       case 'null':
       case 'boolean':
       default:

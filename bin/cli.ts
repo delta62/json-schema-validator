@@ -9,6 +9,10 @@ const argv: Args = yargs
   .option('file', {
     desc: 'A file to read input from. If ommitted, stdin will be used'
   })
+  .option('name', {
+    default: 'joi',
+    desc: 'The name of the joi global to emit in code'
+  })
   .help()
   .argv as yargs.Arguments<Args>
 
