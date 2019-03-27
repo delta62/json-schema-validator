@@ -6,6 +6,7 @@ import generateTrueValidator, { isTrueSchema } from './true'
 import generateAnyValidator from './any'
 import generateArrayValidator from './array'
 import generateNumberValidator from './number'
+import generateObjectValidator from './object'
 import generateStringValidator from './string'
 
 export default function generateValidator(schema: Schema): Validator {
@@ -29,8 +30,9 @@ export default function generateValidator(schema: Schema): Validator {
       case 'array':
         validator = generateArrayValidator(schema)
         break
-      case 'null':
       case 'object':
+        validator = generateObjectValidator(schema)
+      case 'null':
       case 'boolean':
       default:
         throw new Error(`Validators for ${schema.type} are not implemented yet`)

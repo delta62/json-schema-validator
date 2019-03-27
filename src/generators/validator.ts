@@ -1,28 +1,28 @@
-export type ValidatorType = 'any' | 'array' | 'number' | 'string'
+export type ValidatorType = 'any' | 'array' | 'number' | 'object' | 'string'
 
 export interface Constraint {
-    name: string
-    params: any[]
+  name: string
+  params: any[]
 }
 
 export interface Validator extends Constraint {
-    constraints: Constraint[]
+  constraints: Constraint[]
 }
 
 export function validator(type: ValidatorType): Validator {
-    return {
-        name: type,
-        params: [ ],
-        constraints: [ ]
-    }
+  return {
+    name: type,
+    params: [ ],
+    constraints: [ ]
+  }
 }
 
 export function addConstraint(validator: Validator, constraint: Constraint): Validator {
-    return {
-        name: validator.name,
-        constraints: [ ...validator.constraints, constraint ],
-        params: [ ]
-    }
+  return {
+    name: validator.name,
+    constraints: [ ...validator.constraints, constraint ],
+    params: [ ]
+  }
 }
 
 export function constraint(name: string, ...params: any[]): Constraint {
