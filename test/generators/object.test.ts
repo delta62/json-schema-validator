@@ -41,5 +41,5 @@ test('generates a pattern constraint', () => {
   expect(result).toHaveConstraint('pattern')
   let subvalidator = result.constraints[0]
   expect(subvalidator.params[0]).toEqual(/^foo$/)
-  expect(subvalidator.params[0]).toHaveProperty('name', 'string')
+  expect(subvalidator.params[1]).toHaveProperty('name', 'string')
 })
