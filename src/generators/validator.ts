@@ -37,3 +37,6 @@ export function mixinConstraints(source: Validator, dest: Validator): Validator 
   }
 }
 
+export function isValidator(obj: any): obj is Validator {
+  return obj && obj.hasOwnProperty('constraints')
+}
