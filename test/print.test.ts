@@ -27,3 +27,34 @@ test('prints a constraint with an argument', () => {
   ] })
   expect(result).toEqual('joi.string().min(42)')
 })
+
+test('prints a constraint with a nested schema', () => {
+  let result = printValidator('joi', { name: 'array', params: [ ], constraints: [
+    {
+      name: 'contains', params: [
+        { name: 'string', params: [ ], constraints: [ ] }
+      ]
+    }
+  ] })
+  expect(result).toEqual('joi.array().contains(joi.string())')
+})
+
+test('prints an object constraint with nested schemas', () => {
+  let result = printValidator('joi', { name: 'object', params: [ ], constraints: [
+    { name: 'keys', params: [
+      {
+        "some-key": {
+          name: 'number',
+          params: [ ],
+          constraints: [
+            {
+              name: 'integer',
+              params: [ ]
+            }
+          ]
+        }
+      }
+    ] }
+  ] })
+  expect(result).toEqual('joi.object().keys({"some-key":joi.number().integer()})')
+})
