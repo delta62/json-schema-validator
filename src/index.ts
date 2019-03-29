@@ -1,8 +1,7 @@
-import Args from './args'
-
 import readFile from './readers/file'
 import readStdin from './readers/stdin'
 
+import Args from './args'
 import generateSchema from './generators'
 import printCode from './print'
 
