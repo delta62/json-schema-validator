@@ -7,4 +7,7 @@ export default interface Args {
 
   /** Name of the joi object to call in the code */
   name: string
+
+  /** Whether or not unknown properties are allowed */
+  'allow-unknown': boolean
 }
