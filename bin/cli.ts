@@ -10,6 +10,10 @@ const argv: Args = yargs
     desc: 'A file to read input from. If ommitted, stdin will be used',
     type: 'string'
   })
+  .option('output', {
+    desc: 'A file to write output to. If omitted, stdout will be used',
+    type: 'string'
+  })
   .option('name', {
     default: 'joi',
     desc: 'The name of the joi global to emit in code',

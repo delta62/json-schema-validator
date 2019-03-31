@@ -10,4 +10,7 @@ export default interface Args {
 
   /** Whether or not unknown properties are allowed */
   'allow-unknown': boolean
+
+  /** The output file to print results to. If omitted, stdout is used. */
+  output?: string
 }

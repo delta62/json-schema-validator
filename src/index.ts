@@ -1,3 +1,6 @@
+import { Writable } from 'stream'
+import { createWriteStream } from 'fs'
+
 import readFile from './readers/file'
 import readStdin from './readers/stdin'
 
@@ -24,7 +27,13 @@ export default async function main(args: Args) {
   let schemaTree = generateSchema(jsonSchema)
   let code = printCode(args.name, schemaTree)
 
-  process.stdout.write(code)
+  let outStream: Writable
+  if (args.output) {
+    outStream = createWriteStream(args.output)
+  } else {
+    outStream = process.stdout
+  }
+  outStream.write(code)
 }
 
 function validationReport(results: ValidationResults) {
