@@ -1,5 +1,7 @@
 import { Writable } from 'stream'
-import { createWriteStream } from 'fs'
+import { createWriteStream, readFile as fsReadFile } from 'fs'
+import { promisify } from 'util'
+import * as path from 'path'
 
 import readFile from './readers/file'
 import readStdin from './readers/stdin'
@@ -33,7 +35,20 @@ export default async function main(args: Args) {
   } else {
     outStream = process.stdout
   }
+
+  let preamble: string
+  if (args.preamble !== undefined) {
+    preamble = args.preamble
+  } else {
+    let rf = promisify(fsReadFile)
+    let preamblePath = path.join(__dirname, '..', 'resources', 'preamble.js')
+    preamble = await rf(preamblePath, { encoding: 'utf8' })
+    preamble = preamble.replace('%joiName%', args.name)
+  }
+
+  outStream.write(preamble)
   outStream.write(code)
+  outStream.write('\n')
 }
 
 function validationReport(results: ValidationResults) {

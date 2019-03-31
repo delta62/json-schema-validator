@@ -25,6 +25,10 @@ const argv: Args = yargs
 properties are ignored.`,
     type: 'boolean'
   })
+  .option('preamble', {
+    desc: 'Text to prepend to the start of the generated output',
+    type: 'string'
+  })
   .help()
   .argv as yargs.Arguments<Args>
 

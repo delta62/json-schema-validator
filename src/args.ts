@@ -13,4 +13,7 @@ export default interface Args {
 
   /** The output file to print results to. If omitted, stdout is used. */
   output?: string
+
+  /** Text to prepend to the start of the generated output */
+  preamble?: string
 }
