@@ -2,6 +2,7 @@ import { Writable } from 'stream'
 import { createWriteStream, readFile as fsReadFile } from 'fs'
 import { promisify } from 'util'
 import * as path from 'path'
+import chalk from 'chalk'
 
 import readFile from './readers/file'
 import readStdin from './readers/stdin'
@@ -53,9 +54,11 @@ export default async function main(args: Args) {
 
 function validationReport(results: ValidationResults) {
   results.unknownKeys.forEach(k => {
+    process.stderr.write(chalk.yellow('WARNING: '))
     process.stderr.write(`Unknown key "${k}"\n`)
   })
   results.invalidKeys.forEach(k => {
+    process.stderr.write(chalk.red('ERROR: '))
     process.stderr.write(`Invalid value for key ${k}\n`)
   })
 }

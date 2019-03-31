@@ -13,8 +13,8 @@
   },
   "bin": "bin/cli.js",
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
     "@types/jest": "^24.0.11",
-    "@types/joi": "^14.3.2",
     "@types/yargs": "^12.0.10",
     "jest": "^24.5.0",
     "ts-jest": "^24.0.0",
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@types/node": "^11.11.4",
+    "chalk": "^2.4.2",
     "yargs": "^13.2.2"
   },
   "jest": {
