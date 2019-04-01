@@ -42,7 +42,7 @@ export default async function main(args: Args) {
     preamble = args.preamble
   } else {
     let rf = promisify(fsReadFile)
-    let preamblePath = path.join(__dirname, '..', 'resources', 'preamble.js')
+    let preamblePath = path.join(__dirname, '..', 'resources', 'preamble.tpl')
     preamble = await rf(preamblePath, { encoding: 'utf8' })
     preamble = preamble.replace('%joiName%', args.name)
   }
