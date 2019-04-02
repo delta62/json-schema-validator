@@ -10,7 +10,7 @@ import readStdin from './readers/stdin'
 import Args from './args'
 import generateSchema from './generators'
 import printCode from './print'
-import validateSchema, { ValidationResults } from './validate'
+import validateSchema, { ValidationResult } from './validate'
 
 export default async function main(args: Args) {
   let schema: string
@@ -21,7 +21,7 @@ export default async function main(args: Args) {
   }
 
   let jsonSchema = JSON.parse(schema)
-  let validationResults = validateSchema(jsonSchema)
+  let validationResults = validateSchema(jsonSchema, args['allow-unknown'])
   validationReport(validationResults)
   if (shouldExit(args, validationResults)) {
     process.exit(1)
@@ -52,17 +52,17 @@ export default async function main(args: Args) {
   outStream.write('\n')
 }
 
-function validationReport(results: ValidationResults) {
-  results.unknownKeys.forEach(k => {
+function validationReport(results: ValidationResult) {
+  Object.entries(results.unknownKeys).forEach(([ k, _v ]) => {
     process.stderr.write(chalk.yellow('WARNING: '))
     process.stderr.write(`Unknown key "${k}"\n`)
   })
-  results.invalidKeys.forEach(k => {
+  Object.entries(results.invalidKeys).forEach(([ k, v ]) => {
     process.stderr.write(chalk.red('ERROR: '))
-    process.stderr.write(`Invalid value for key ${k}\n`)
+    process.stderr.write(`Invalid value for key ${k}: ${v}\n`)
   })
 }
 
-function shouldExit(args: Args, results: ValidationResults) {
-  return !results.pass || (results.unknownKeys.length > 0 && !args['allow-unknown'])
+function shouldExit(args: Args, results: ValidationResult) {
+  return !results.pass || (Object.keys(results.unknownKeys).length > 0 && !args['allow-unknown'])
 }
