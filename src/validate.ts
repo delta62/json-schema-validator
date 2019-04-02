@@ -129,7 +129,7 @@ function arrayValidator(itemValidator: PropValidatorFunction, expectedName: stri
     }
     return x.reduce((acc, item, i) => {
       let childPath = appendIndex(context.path, i)
-      if (itemValidator({ ...context, path: childPath }, item)) {
+      if (itemValidator({ ...context, path: childPath }, item).pass) {
         return acc
       }
       let err = invalidKey(childPath, item, expectedName)
@@ -145,7 +145,7 @@ function objectValidator(itemValidator: PropValidatorFunction, expectedName: str
     }
     return Object.entries(x).reduce((acc, [ k, v ]) => {
       let childPath = appendKey(context.path, k)
-      if (itemValidator({ ...context, path: childPath }, v)) {
+      if (itemValidator({ ...context, path: childPath }, v).pass) {
         return acc
       }
       let err = invalidKey(childPath, v, expectedName)

@@ -20,6 +20,11 @@ test('reports unknown keys', () => {
   expect(result).toHaveProperty('unknownKeys.foo', '"bar"')
 })
 
+test('reports nested unknown keys', () => {
+  let result = validate({ contains: { foo: 'bar' } }, true)
+  expect(result.unknownKeys).toHaveProperty([ 'contains.foo' ], '"bar"')
+})
+
 test('reports invalid keys', () => {
   let result = validate({ maxItems: 'forty two' }, true)
   expect(result).toHaveProperty('invalidKeys.maxItems.expected', 'number')
@@ -29,4 +34,10 @@ test('reports invalid keys', () => {
 test('fails with invalid keys', () => {
   let result = validate({ maxItems: 'forty two' }, true)
   expect(result).toHaveProperty('pass', false)
+})
+
+test('reports nested invalid indexes', () => {
+  let result = validate({ required: [ 'foo',  42 ] }, true)
+  expect(result).toHaveProperty('invalidKeys.required[1].actual', '42')
+  expect(result).toHaveProperty('invalidKeys.required[1].expected', 'string')
 })
