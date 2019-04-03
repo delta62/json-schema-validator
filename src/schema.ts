@@ -23,6 +23,7 @@ interface ObjectSchemaInternal {
   maxLength: number
   minLength: number
   pattern: RegExp
+  format: string
 
   // Array validation
   items: Schema | Schema[]
@@ -52,8 +53,6 @@ interface ObjectSchemaInternal {
   anyOf: Schema[]
   oneOf: Schema[]
   not: Schema
-
-  // format not implemented
 
   // Annotations
   title: string
