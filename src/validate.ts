@@ -23,7 +23,14 @@ interface ValidationContext {
   allowUnknown: boolean
 }
 
+const anyValidator = ok
+
 const KNOWN_PROPS: Record<string, PropValidatorFunction> = {
+  // Annotations
+  description: stringValidator,
+  default: anyValidator,
+  examples: arrayValidator(anyValidator, 'any'),
+
   // String validation
   maxLength: numberValidator,
   minLength: numberValidator,
@@ -48,7 +55,12 @@ const KNOWN_PROPS: Record<string, PropValidatorFunction> = {
   minProperties: numberValidator,
   required: arrayValidator(stringValidator, 'string'),
   properties: objectValidator(schemaValidator, 'schema'),
-  patternProperties: objectValidator(schemaValidator, 'schema')
+  patternProperties: objectValidator(schemaValidator, 'schema'),
+
+  // Conditional validation
+  if: schemaValidator,
+  then: schemaValidator,
+  else: schemaValidator
 }
 
 export default function validate(maybeSchema: any, allowUnknownKeys: boolean): ValidationResult {

@@ -18,3 +18,7 @@ test('generates a const constraint', () => {
   let result = generateAnySchema({ const: 42 })
   expect(result).toHaveConstraint('valid', 42)
 })
+
+test.todo('generates a when constraint')
+test.todo('generates an else constraint')
+test.todo('generates an otherwise constraint')
