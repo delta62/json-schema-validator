@@ -58,9 +58,10 @@ interface ObjectSchemaInternal {
   title: string
   description: string
   default: any
-  readOnly: boolean
-  writeOnly: boolean
   examples: any[]
+  // Not implemented
+  // readOnly: boolean
+  // writeOnly: boolean
 }
 
 export type ObjectSchema = Partial<ObjectSchemaInternal>

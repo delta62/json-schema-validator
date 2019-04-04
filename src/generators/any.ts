@@ -16,5 +16,17 @@ export default function generateAnyValidator(schema: ObjectSchema): Validator {
     v = addConstraint(v, constraint('valid', schema.const))
   }
 
+  if (schema.hasOwnProperty('description')) {
+    v = addConstraint(v, constraint('description', schema.description))
+  }
+
+  if (schema.hasOwnProperty('default')) {
+    v = addConstraint(v, constraint('default', schema.default))
+  }
+
+  if (schema.hasOwnProperty('examples')) {
+    v = addConstraint(v, constraint.apply(null, [ 'example', ...schema.examples! ]))
+  }
+
   return v
 }
