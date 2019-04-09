@@ -11,11 +11,11 @@ function printParams(joiName: string, args: any[]): string {
 }
 
 function printParam(joiName: string, param: any): string {
-  if (
-    [ 'string', 'number'].includes(typeof param)
-    || param === null
-    || param instanceof RegExp
-  ) {
+  if (typeof param === 'string') {
+    return `"${param}"`
+  }
+
+  if (typeof param === 'number' || param === null || param instanceof RegExp) {
     return param.toString()
   }
 
