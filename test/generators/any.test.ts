@@ -19,6 +19,30 @@ test('generates a const constraint', () => {
   expect(result).toHaveConstraint('valid', 42)
 })
 
-test.todo('generates a when constraint')
-test.todo('generates an else constraint')
-test.todo('generates an otherwise constraint')
+test('generates a when constraint', () => {
+  let result = generateAnySchema({ if: true })
+  expect(result).toHaveConstraint('when')
+})
+
+test('generates a condition arg', () => {
+  let result = generateAnySchema({ if: true })
+  let params = result.constraints[0].params
+  let [ condition ] = params
+  expect(condition).toHaveProperty('name', 'any')
+})
+
+test('generates an then arg', () => {
+  let result = generateAnySchema({ if: false, then: true })
+  let params = result.constraints[0].params
+  let [ , opts ] = params
+  let { then } = opts
+  expect(then).toHaveProperty('name', 'any')
+})
+
+test('generates an otherwise arg', () => {
+  let result = generateAnySchema({ if: false, then: true, else: true })
+  let params = result.constraints[0].params
+  let [ , opts ] = params
+  let { otherwise } = opts
+  expect(otherwise).toHaveProperty('name', 'any')
+})

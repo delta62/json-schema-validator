@@ -1,5 +1,6 @@
 import { ObjectSchema } from '../schema'
 import { Validator, addConstraint, constraint, validator } from './validator'
+import generateValidator from './index'
 
 /* NOT IMPLEMENTED:
  * - type[]
@@ -29,10 +30,15 @@ export default function generateAnyValidator(schema: ObjectSchema): Validator {
   }
 
   if (schema.hasOwnProperty('if')) {
-    v = addConstraint(v, constraint('when', {
-      then: schema.then,
-      otherwise: schema.else
-    }))
+    let opts: { then?: Validator; otherwise?: Validator } = { }
+    if (schema.hasOwnProperty('then')) {
+      opts.then = generateValidator(schema.then!)
+    }
+    if (schema.hasOwnProperty('else')) {
+      opts.otherwise = generateValidator(schema.else!)
+    }
+
+    v = addConstraint(v, constraint('when', generateValidator(schema.if!), opts))
   }
 
   return v
