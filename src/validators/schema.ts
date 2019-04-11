@@ -3,12 +3,16 @@ import { isTrueSchema } from '../generators/true'
 import { isFalseSchema } from '../generators/false'
 import { Schema } from '../schema'
 
+type Assertion = (expected: any, actual: unsafe) => boolean
+
 import typeValidator from './type'
 import enumValidator from './enum'
+import constValidator from './const'
 
-const ASSERTIONS = {
+const ASSERTIONS: Record<string, Assertion> = {
   type: typeValidator,
-  enum: enumValidator
+  enum: enumValidator,
+  const: constValidator
 }
 
 export default function validate(schema: Schema, instance: unsafe): boolean {
