@@ -18,11 +18,11 @@ export function isBoolean(value: any): value is boolean {
   return typeof value === 'boolean'
 }
 
-export function isArray(value: any): value is any[] {
+export function isArray(value: any): value is unsafe[] {
   return Array.isArray(value)
 }
 
-export function isObject(value: any): value is object {
+export function isObject(value: any): value is Record<string, unsafe> {
   return typeof value === 'object' && !isNull(value) && !isArray(value)
 }
 
