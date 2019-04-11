@@ -1,7 +1,8 @@
+import unsafe, { isBoolean, isInteger, isString, isNumber, isObject, isArray, isNull } from '../unsafe'
 import { SchemaType } from '../schema'
 
 export default function typeValidator(
-  typ: SchemaType | SchemaType[], instance: any
+  typ: SchemaType | SchemaType[], instance: unsafe
 ): boolean {
   if (typeof typ === 'string') {
     typ = [ typ ]
@@ -9,24 +10,22 @@ export default function typeValidator(
   return typ.some(t => isScalarType(t, instance))
 }
 
-function isScalarType(expected: SchemaType, actual: any): boolean {
+function isScalarType(expected: SchemaType, actual: unsafe): boolean {
   switch (expected) {
     case 'boolean':
-      return typeof actual === 'boolean'
+      return isBoolean(actual)
     case 'string':
-      return typeof actual === 'string'
+      return isString(actual)
     case 'number':
-      return typeof actual === 'number' && actual !== Infinity
+      return isNumber(actual)
     case 'integer':
-      return typeof actual === 'number'
-        && actual !== Infinity
-        && Math.floor(actual) === actual
+      return isInteger(actual)
     case 'object':
-      return typeof actual === 'object' && actual !== null
+      return isObject(actual)
     case 'array':
-      return Array.isArray(actual)
+      return isArray(actual)
     case 'null':
-      return actual === null
+      return isNull(actual)
     default:
       return false
   }

@@ -1,3 +1,4 @@
+import unsafe from '../unsafe'
 import { isTrueSchema } from '../generators/true'
 import { isFalseSchema } from '../generators/false'
 import { Schema } from '../schema'
@@ -10,7 +11,7 @@ const ASSERTIONS = {
   enum: enumValidator
 }
 
-export default function validate(schema: Schema, instance: any): boolean {
+export default function validate(schema: Schema, instance: unsafe): boolean {
   if (isTrueSchema(schema)) {
     return true
   }

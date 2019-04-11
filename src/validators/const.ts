@@ -1,23 +1,28 @@
-export default function validateConst(expected: any, actual: any): boolean {
+import { isArray, isString, isNumber, isBoolean, isNull, isObject, unsafe } from '../unsafe'
+
+export default function validateConst(expected: any, actual: unsafe): boolean {
   return compare(expected, actual)
 }
 
-function compare(expected: any, actual: any): boolean {
-    if (typeof expected === 'string'
-      || typeof expected === 'number'
-      || typeof expected === 'boolean'
-      || expected === null) return actual === expected
+function compare(expected: any, actual: unsafe): boolean {
+    if (isString(actual)
+      || isNumber(actual)
+      || isBoolean(actual)
+      || isNull(actual)) return actual === expected
 
-  if (Array.isArray(expected)) {
-    if (!Array.isArray(actual)) return false
+  if (isArray(expected)) {
+    if (!isArray(actual)) return false
     return expected.every((item, idx) => compare(item, actual[idx]))
   }
 
-  if (typeof expected === 'object') {
-    return typeof actual === 'object'
-      && Object.keys(actual).length === Object.keys(expected).length
-      && Object.entries(expected).every(([ key, value ]) => {
-        return actual.hasOwnProperty(key) && compare(value, actual[key])
+  if (isObject(expected)) {
+    if (!isObject(actual)) return false
+
+    let expectedEntries = Object.entries(expected)
+    if (Object.keys(actual).length !== expectedEntries.length) return false
+
+    return expectedEntries.every(([ key, value ]) => {
+        return compare(value, actual[key])
       })
   }
 
