@@ -15,6 +15,10 @@ import exclusiveMaximumValidator from './exclusive-maximum'
 import minimumValidator from './minimum'
 import exclusiveMinimumValidator from './exclusive-minimum'
 
+import maxLengthValidator from './max-length'
+import minLengthValidator from './min-length'
+import patternValidator from './pattern'
+
 const ASSERTIONS: Record<string, Assertion> = {
   type: typeValidator,
   enum: enumValidator,
@@ -23,7 +27,10 @@ const ASSERTIONS: Record<string, Assertion> = {
   maximum: maximumValidator,
   exclusiveMaximum: exclusiveMaximumValidator,
   minimum: minimumValidator,
-  exclusiveMinimum: exclusiveMinimumValidator
+  exclusiveMinimum: exclusiveMinimumValidator,
+  maxLength: maxLengthValidator,
+  minLength: minLengthValidator,
+  pattern: patternValidator
 }
 
 export default function validate(schema: Schema, instance: unsafe): boolean {
