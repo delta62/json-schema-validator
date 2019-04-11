@@ -12,6 +12,8 @@ import constValidator from './const'
 import multipleOfValidator from './multiple-of'
 import maximumValidator from './maximum'
 import exclusiveMaximumValidator from './exclusive-maximum'
+import minimumValidator from './minimum'
+import exclusiveMinimumValidator from './exclusive-minimum'
 
 const ASSERTIONS: Record<string, Assertion> = {
   type: typeValidator,
@@ -19,7 +21,9 @@ const ASSERTIONS: Record<string, Assertion> = {
   const: constValidator,
   multipleOf: multipleOfValidator,
   maximum: maximumValidator,
-  exclusiveMaximum: exclusiveMaximumValidator
+  exclusiveMaximum: exclusiveMaximumValidator,
+  minimum: minimumValidator,
+  exclusiveMinimum: exclusiveMinimumValidator
 }
 
 export default function validate(schema: Schema, instance: unsafe): boolean {
