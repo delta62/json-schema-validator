@@ -3,9 +3,11 @@ import { isFalseSchema } from '../generators/false'
 import { Schema } from '../schema'
 
 import typeValidator from './type'
+import enumValidator from './enum'
 
 const ASSERTIONS = {
-  type: typeValidator
+  type: typeValidator,
+  enum: enumValidator
 }
 
 export default function validate(schema: Schema, instance: any): boolean {
