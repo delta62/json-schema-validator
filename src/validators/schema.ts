@@ -1,9 +1,5 @@
 import unsafe from '../unsafe'
-import { isTrueSchema } from '../generators/true'
-import { isFalseSchema } from '../generators/false'
-import { Schema } from '../schema'
-
-type Assertion = (expected: any, actual: unsafe) => boolean
+import { ObjectSchema, Schema, isTrueSchema, isFalseSchema } from '../schema'
 
 import typeValidator from './type'
 import enumValidator from './enum'
@@ -19,6 +15,11 @@ import maxLengthValidator from './max-length'
 import minLengthValidator from './min-length'
 import patternValidator from './pattern'
 
+import itemsValidator from './items'
+import additionalItemsValidator from './additional-items'
+
+type Assertion = (expected: any, actual: unsafe, parentSchema: ObjectSchema) => boolean
+
 const ASSERTIONS: Record<string, Assertion> = {
   type: typeValidator,
   enum: enumValidator,
@@ -30,7 +31,9 @@ const ASSERTIONS: Record<string, Assertion> = {
   exclusiveMinimum: exclusiveMinimumValidator,
   maxLength: maxLengthValidator,
   minLength: minLengthValidator,
-  pattern: patternValidator
+  pattern: patternValidator,
+  items: itemsValidator,
+  additionalItems: additionalItemsValidator
 }
 
 export default function validate(schema: Schema, instance: unsafe): boolean {
@@ -43,7 +46,7 @@ export default function validate(schema: Schema, instance: unsafe): boolean {
 
   return Object.entries(ASSERTIONS).every(([ key, validator ]) => {
     if (schema.hasOwnProperty(key)) {
-      return validator(schema[key as keyof Schema], instance)
+      return validator(schema[key as keyof Schema], instance, schema)
     } else {
       return true
     }

@@ -6,6 +6,14 @@ export type FalseSchema = false
 
 export type SchemaType = 'string' | 'boolean' | 'null' | 'object' | 'array' | 'number' | 'integer'
 
+export function isFalseSchema(schema: Schema): schema is FalseSchema {
+  return schema === false
+}
+
+export function isTrueSchema(schema: Schema): schema is TrueSchema {
+  return schema === true
+}
+
 interface ObjectSchemaInternal {
   // General validation
   type: SchemaType | SchemaType[]
