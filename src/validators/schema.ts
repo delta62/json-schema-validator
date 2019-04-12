@@ -26,6 +26,7 @@ import maxPropertiesValidator from './max-properties'
 import minPropertiesValidator from './min-properties'
 import requiredValidator from './required'
 import propertiesValidator from './properties'
+import patternPropertiesValidator from './pattern-properties'
 
 type Assertion = (expected: any, actual: unsafe, parentSchema: ObjectSchema) => boolean
 
@@ -50,7 +51,8 @@ const ASSERTIONS: Record<string, Assertion> = {
   maxProperties: maxPropertiesValidator,
   minProperties: minPropertiesValidator,
   required: requiredValidator,
-  properties: propertiesValidator
+  properties: propertiesValidator,
+  patternProperties: patternPropertiesValidator
 }
 
 export default function validate(schema: Schema, instance: unsafe): boolean {
