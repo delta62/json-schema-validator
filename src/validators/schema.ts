@@ -17,6 +17,10 @@ import patternValidator from './pattern'
 
 import itemsValidator from './items'
 import additionalItemsValidator from './additional-items'
+import maxItemsValidator from './max-items'
+import minItemsValidator from './min-items'
+import uniqueItemsValidator from './unique-items'
+import containsValidator from './contains'
 
 type Assertion = (expected: any, actual: unsafe, parentSchema: ObjectSchema) => boolean
 
@@ -33,7 +37,11 @@ const ASSERTIONS: Record<string, Assertion> = {
   minLength: minLengthValidator,
   pattern: patternValidator,
   items: itemsValidator,
-  additionalItems: additionalItemsValidator
+  additionalItems: additionalItemsValidator,
+  maxItems: maxItemsValidator,
+  minItems: minItemsValidator,
+  uniqueItems: uniqueItemsValidator,
+  contains: containsValidator
 }
 
 export default function validate(schema: Schema, instance: unsafe): boolean {
