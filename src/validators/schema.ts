@@ -22,6 +22,11 @@ import minItemsValidator from './min-items'
 import uniqueItemsValidator from './unique-items'
 import containsValidator from './contains'
 
+import maxPropertiesValidator from './max-properties'
+import minPropertiesValidator from './min-properties'
+import requiredValidator from './required'
+import propertiesValidator from './properties'
+
 type Assertion = (expected: any, actual: unsafe, parentSchema: ObjectSchema) => boolean
 
 const ASSERTIONS: Record<string, Assertion> = {
@@ -41,7 +46,11 @@ const ASSERTIONS: Record<string, Assertion> = {
   maxItems: maxItemsValidator,
   minItems: minItemsValidator,
   uniqueItems: uniqueItemsValidator,
-  contains: containsValidator
+  contains: containsValidator,
+  maxProperties: maxPropertiesValidator,
+  minProperties: minPropertiesValidator,
+  required: requiredValidator,
+  properties: propertiesValidator
 }
 
 export default function validate(schema: Schema, instance: unsafe): boolean {
