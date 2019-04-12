@@ -29,6 +29,7 @@ import propertiesValidator from './properties'
 import patternPropertiesValidator from './pattern-properties'
 import additionalPropertiesValidator from './additional-properties'
 import propertyNamesValidator from './property-names'
+import dependenciesValidator from './dependencies'
 
 type Assertion = (expected: any, actual: unsafe, parentSchema: ObjectSchema) => boolean
 
@@ -56,6 +57,7 @@ const ASSERTIONS: Record<string, Assertion> = {
   properties: propertiesValidator,
   patternProperties: patternPropertiesValidator,
   additionalProperties: additionalPropertiesValidator,
+  dependencies: dependenciesValidator,
   propertyNames: propertyNamesValidator
 }
 
