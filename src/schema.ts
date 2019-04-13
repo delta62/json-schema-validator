@@ -1,5 +1,7 @@
 export type Schema = TrueSchema | FalseSchema | ObjectSchema
 
+export default Schema
+
 export type TrueSchema = true
 
 export type FalseSchema = false
