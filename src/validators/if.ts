@@ -9,13 +9,13 @@ export default function ifValidator(
 ): boolean {
   if (validateSchema(expected, actual)) {
     if (parentSchema.hasOwnProperty('then')) {
-      return validateSchema(parentSchema.then, actual)
+      return validateSchema(parentSchema.then!, actual)
     }
     return true
   }
 
   if (parentSchema.hasOwnProperty('else')) {
-    return validateSchema(parentSchema.else, actual)
+    return validateSchema(parentSchema.else!, actual)
   }
   return true
 }
