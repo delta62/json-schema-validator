@@ -38,7 +38,7 @@ import anyOfValidator from './any-of'
 import oneOfValidator from './one-of'
 import notValidator from './not'
 
-type Assertion = (expected: any, actual: unsafe, parentSchema: ObjectSchema) => boolean
+export type Assertion = (expected: any, actual: unsafe, parentSchema: ObjectSchema) => boolean
 
 const ASSERTIONS: Record<string, Assertion> = {
   type: typeValidator,
