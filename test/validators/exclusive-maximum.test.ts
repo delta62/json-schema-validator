@@ -1,4 +1,4 @@
-import exclusiveMaximumValidator from '../../src/validators/exclusive-maximum'
+import exclusiveMaximumValidator from '../../lib/validators/exclusive-maximum'
 
 ([
   [ 42, 10 ],

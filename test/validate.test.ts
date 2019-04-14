@@ -1,4 +1,4 @@
-import validate from '../src/validate'
+import validate from '../lib/validate'
 
 test('allows true schema', () => {
   let result = validate(true, true)

@@ -1,5 +1,5 @@
-import { SchemaType } from '../../src/schema'
-import validateType from '../../src/validators/type'
+import { SchemaType } from '../../lib/schema'
+import validateType from '../../lib/validators/type'
 
 const CASES: Record<string, any[]> = {
   null:    [ null ],

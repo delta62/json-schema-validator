@@ -1,4 +1,4 @@
-import minimumValidator from '../../src/validators/minimum'
+import minimumValidator from '../../lib/validators/minimum'
 
 ([
   [ 42, 42 ],

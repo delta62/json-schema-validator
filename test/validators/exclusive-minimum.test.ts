@@ -1,4 +1,4 @@
-import exclusiveMinimumValidator from '../../src/validators/exclusive-minimum'
+import exclusiveMinimumValidator from '../../lib/validators/exclusive-minimum'
 
 ([
   [ 10, 11 ],

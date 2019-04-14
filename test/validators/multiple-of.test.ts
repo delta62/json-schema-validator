@@ -1,4 +1,4 @@
-import multipleOfValidator from '../../src/validators/multiple-of'
+import multipleOfValidator from '../../lib/validators/multiple-of'
 
 test('passes for non-numeric inputs', () => {
   expect(validate(2, 'foo')).toBe(true)

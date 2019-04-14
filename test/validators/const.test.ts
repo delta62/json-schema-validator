@@ -1,4 +1,4 @@
-import constValidator from '../../src/validators/const'
+import constValidator from '../../lib/validators/const'
 
 [
   [ 'foo', 'foo' ],
