@@ -12,7 +12,8 @@ function compare(expected: any, actual: unsafe): boolean {
 
   if (isArray(expected)) {
     if (!isArray(actual)) return false
-    return expected.every((item, idx) => compare(item, actual[idx]))
+    return expected.length === (actual as unsafe[]).length
+      && expected.every((item, idx) => compare(item, actual[idx]))
   }
 
   if (isObject(expected)) {
