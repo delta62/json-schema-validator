@@ -1,5 +1,5 @@
 {
-  "name": "json-schema-to-joi",
+  "name": "@noedel/json-schema-validator",
   "version": "1.0.0",
   "main": "src/index.js",
   "repository": "git@github.com:delta62/json-schema-to-joi.git",
