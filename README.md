@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/delta62/json-schema-to-joi.svg?style=svg)](https://circleci.com/gh/delta62/json-schema-to-joi)
+[![CircleCI](https://circleci.com/gh/delta62/json-schema-validator.svg?style=svg)](https://circleci.com/gh/delta62/json-schema-validator)
 
 # json-schema-to-joi
 
