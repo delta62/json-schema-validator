@@ -33,7 +33,8 @@ interface ObjectSchemaInternal {
   maxLength: number
   minLength: number
   pattern: RegExp
-  format: string
+  // Not implemented
+  // format: string
 
   // Array validation
   items: Schema | Schema[]
